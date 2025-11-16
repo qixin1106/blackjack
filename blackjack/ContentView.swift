@@ -26,28 +26,29 @@ struct ContentView: View {
             ScoreDisplay(player: $player, dealer: $dealer, gameState: $gameState)
             
             Spacer()
+                .frame(height: CGFloat(20))
             
-            //Hands and message displayed at center
-            Group{
+            //3D Scene View
+            ZStack {
+                Color.black.edgesIgnoringSafeArea(.all)
                 
-                DealerHandDisplay(dealer: $dealer, gameState: $gameState)
+                BlackjackSceneView(
+                    playerHand: $player.hand,
+                    dealerHand: $dealer.hand,
+                    gameState: $gameState
+                )
+                .frame(height: 500)
+                .cornerRadius(10)
+                .padding()
                 
-                Spacer()
-                    .frame(height: CGFloat(20))
-                
-                
+                // Message overlay
                 MessageDisplay(message: $message)
-                
-                Spacer()
-                    .frame(height: CGFloat(20))
-                
-                PlayerHandDisplay(player: $player)
-                
             }
             
-            //Buttons display at bottom
             Spacer()
+                .frame(height: CGFloat(20))
             
+            //Buttons display at bottom
             OptionButtons(gameState: $gameState, message: $message, deck: $deck, player: $player, dealer: $dealer)
             
             Spacer()
